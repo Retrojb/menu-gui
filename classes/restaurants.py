@@ -1,9 +1,18 @@
 import sqlite3
 
 
-class restaurant:
+class Restaurant:
 
-    restaurants = 'data.db'
+    restaurants = 'restaurant.db'
+
+    def __init__(self, name, address, visited):
+        self.name = name
+        self.address = address
+        self.visited = visited
+
+    def __getitem__(self, r):
+        return self.restaurants[r]
+
 
     def create_restaurant_table(self):
         connect = sqlite3.connect('restaurants.db')
@@ -13,6 +22,7 @@ class restaurant:
 
         connect.commit()
         connect.close()
+
 
     def get_all_restaurants(self):
         connection = sqlite3.connect('restaurants.db')
@@ -25,6 +35,7 @@ class restaurant:
 
 
         connection.close()
+        return cursor
 
     def add_restaurant(self, name, address):
         connection = sqlite3.connect('restaurants.db')
@@ -34,6 +45,28 @@ class restaurant:
         connection.commit()
         connection.close()
 
-    print(restaurants)
+    def update_restaurant(self):
+        connection = sqlite3.connect('restaurant.db')
+        cursor = connection.cursor()
+
+        cursor.execute()
+        connection.commit()
+        connection.close()
 
 
+    def mark_if_visted(self, name):
+        connection = sqlite3.connect('restaurant.db')
+        cursor = connection.cursor()
+
+        cursor.execute()
+        connection.commit()
+        connection.close()
+
+
+    def delete_restaurant(self):
+        connection = sqlite3.connect('restaurant.db')
+        cursor = connection.cursor()
+
+        cursor.execute()
+        connection.commit()
+        connection.close()
