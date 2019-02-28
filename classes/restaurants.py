@@ -23,19 +23,25 @@ class Restaurant:
         connect.commit()
         connect.close()
 
-
     def get_all_restaurants(self):
         connection = sqlite3.connect('restaurants.db')
         cursor = connection.cursor()
 
         cursor.excute('SELECT name, * FROM restaurants')
         restaurants = [{'name': row[0], 'address': row[1], 'visited': row[3]} for row in cursor.fetchall()]
-        # restaurants = cursor.fetchall()  #returns a list of tupils [(name, address, visited)...)]
-        #convert tuples to dictionary
-
 
         connection.close()
-        return cursor
+        return restaurants
+
+    def get_a_restaurant(self, name):
+        connection = sqlite3.connect('restaurant.db')
+        cursor = connection.cursor()
+
+        cursor.execute('SELECT name=? FROM restaurant', (name,))
+        restaurant = [{'name': row[0], 'address': row[1], 'visited': row[3]} for row in cursor.fetchone()]
+
+        connection.close()
+        return restaurant
 
     def add_restaurant(self, name, address):
         connection = sqlite3.connect('restaurants.db')
@@ -45,11 +51,11 @@ class Restaurant:
         connection.commit()
         connection.close()
 
-    def update_restaurant(self):
+    def update_restaurant(self, name):
         connection = sqlite3.connect('restaurant.db')
         cursor = connection.cursor()
 
-        cursor.execute()
+        cursor.execute('UPDATE restaurants SET name='' WHERE name=? ', (name,))
         connection.commit()
         connection.close()
 
@@ -58,15 +64,15 @@ class Restaurant:
         connection = sqlite3.connect('restaurant.db')
         cursor = connection.cursor()
 
-        cursor.execute()
+        cursor.execute('UPDATE restaurants SET visited=1 WHERE name=?', (name,))
         connection.commit()
         connection.close()
 
 
-    def delete_restaurant(self):
+    def delete_restaurant(self, name):
         connection = sqlite3.connect('restaurant.db')
         cursor = connection.cursor()
 
-        cursor.execute()
+        cursor.execute('DELETE FROM restaurants WHERE name=?', (name,))
         connection.commit()
         connection.close()
