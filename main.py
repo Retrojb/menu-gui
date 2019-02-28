@@ -11,7 +11,7 @@ class UserInterface:
     -'r' tp mark a restaurant as visited
     -'d' to delete a restaurant
     -'q' to quit
-    
+
     Your choice:"""
 
     def user_interface(self):
@@ -27,13 +27,6 @@ class UserInterface:
                 UserInterface.prompt_delete()
             else:
                 messagebox.showinfo('Error', "Command Error: Try Again \n " + {UserInterface.USER_CHOICE})
-
-    '''
-        Long term would be to change these commands into switch cases and getters to refactor
-        ie. def add(): return restaurant.add_restaurant
-        def requested_user_action(): switch = { 1: add, 2:....} func = switch.get(arg, " something ")  return func
-        which would later lower the lines writen out. Possible to abstract out in the long run?
-    '''
 
     def prompt_add_restaurant(self):
         name = simpledialog.askstring('Add', 'Enter the name of a new restaurant: ')
@@ -53,8 +46,23 @@ class UserInterface:
         restaurants.mark_if_visited(name)
 
     def prompt_delete(self):
-        return
+        name = simpledialog.askstring('Delete', 'Enter a restaurant you want to delete: ')
+        address = restaurants.get_one_restaurants(name)
+        if name is True:
+            restaurants.delete_restaurant(name, address)
+        else:
+            print("Generic Error Message about Errors!!!")
+
+        for restaurant in restaurants:
+            return restaurant
 
 
 root = tk.Tk()
 root.mainloop()
+
+'''
+    Long term would be to change these commands into switch cases and getters to refactor for UserInterface
+    ie. def add(): return restaurant.add_restaurant
+    def requested_user_action(): switch = { 1: add, 2:....} func = switch.get(arg, " something ")  return func
+    which would later lower the lines writen out. Possible to abstract out in the long run?
+'''

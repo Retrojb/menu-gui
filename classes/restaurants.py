@@ -33,7 +33,7 @@ class Restaurant:
         connection.close()
         return restaurants
 
-    def get_a_restaurant(self, name):
+    def get_one_restaurant(self, name):
         connection = sqlite3.connect('restaurant.db')
         cursor = connection.cursor()
 
